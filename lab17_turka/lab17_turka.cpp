@@ -2,98 +2,80 @@
 
 using namespace std;
 
+// колесо
 class Wheel {
 
-private:
+protected:
 
-    double diameter;
-    string material;
-
-public:
-
-    Wheel(double diam, string mat) : diameter(diam), material(mat) {}
-
-    void display() {
-
-        cout << "Wheel - Diameter: " << diameter << " meters, Material: " << material << '\n';
-    }
-};
-
-/// 
-
-class Bicycle {
-
-private:
-
-    Wheel frontWheel;
-    Wheel rearWheel;
-    string frameType;
-    int numGears;
+    int size;
 
 public:
 
-    Bicycle(double frontDiam, double rearDiam, string frontMat, string rearMat, string frame, int gears):
-        
-        frontWheel(frontDiam, frontMat), rearWheel(rearDiam, rearMat), frameType(frame), numGears(gears) {}
+    Wheel(int size) : size(size) {}
 
-    void display() {
+    void displayInfo() const {
 
-        cout << "Bicycle - Frame: " << frameType << ", Gears: " << numGears << '\n';
-        cout << "Front ";
-        frontWheel.display();
-        cout << "Rear ";
-        rearWheel.display();
+        cout << "Wheel size: " << size << " mm" << '\n';
     }
 };
 
-///
-
-class Car {
+// велосипед
+class Bicycle : public Wheel {
 
 private:
 
-    Wheel frontLeftWheel;
-    Wheel frontRightWheel;
-    Wheel rearLeftWheel;
-    Wheel rearRightWheel;
-    string make;
+    string type;
+
+public:
+
+    Bicycle(int size, const string& type) : Wheel(size), type(type) {}
+
+    void displayInfo() const {
+
+    Wheel:: displayInfo();
+
+    cout << "Bicycle type: " << type << '\n';
+    }
+};
+
+// машина
+class Car : public Wheel {
+
+private:
+
     string model;
+    int horsepower;
 
 public:
 
-    Car(double frontDiam, double rearDiam, string frontMat, string rearMat, string carMake, string carModel):
+    Car(int size, const string& model, int horsepower) : Wheel(size), model(model), horsepower(horsepower) {}
 
-        frontLeftWheel(frontDiam, frontMat), frontRightWheel(frontDiam, frontMat),
-        rearLeftWheel(rearDiam, rearMat), rearRightWheel(rearDiam, rearMat), make(carMake), model(carModel) {}
+    void displayInfo() const {
 
-    void display() {
+        Wheel::displayInfo();
 
-        cout << "Car - Make: " << make << ", Model: " << model << '\n';
-        cout << "Front left ";
-        frontLeftWheel.display();
-        cout << "Front right ";
-        frontRightWheel.display();
-        cout << "Rear left ";
-        rearLeftWheel.display();
-        cout << "Rear right ";
-        rearRightWheel.display();
+        cout << "Car model: " << model << '\n';
+        cout << "Horsepower: " << horsepower << "km/h " << '\n';
     }
 };
 
 int main() {
 
-    Wheel bicycleWheel(0.6604, "Rubber");
-    Bicycle Bicycle(0.6604, 0.6604, "Rubber", "Rubber", "Mountain", 21);
+    Bicycle bike(97, "Mountain");
 
-    Wheel carWheel(0.4064, "Metal alloy");
-    Car Car(0.4064, 0.4064, "Metal alloy", "Metal alloy", "Toyota", "Corolla");
+    Car car(185, "Toyota Camry", 210);
 
-    cout << "Bicycle: " << '\n';
-    Bicycle.display();
-    cout << '\n';
+    cout << "Bicycle Info:" << '\n';
+    bike.displayInfo();
 
-    cout << "Car: " << '\n';
-    Car.display();
+    cout << "\nCar Info:" << '\n';
+    car.displayInfo();
 
     return 0;
 }
+
+
+
+
+
+
